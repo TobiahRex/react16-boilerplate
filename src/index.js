@@ -6,7 +6,7 @@ import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { PersistGate } from 'redux-persist/integration/react';
 import configureStore, { history } from './redux/configureStore';
-import Root from './components/Root';
+import Root from './views/Root';
 import './styles/style.scss'; //eslint-disable-line
 import './styles/light-bootstrap-dashboard.css';
 
@@ -24,8 +24,8 @@ render(
 );
 
 if (module.hot) {
-  module.hot.accept('./components/Root', () => {
-    const NewRoot = require('./components/Root').default;
+  module.hot.accept('./views/Root', () => {
+    const NewRoot = require('./views/Root').default;
     render(
       <AppContainer>
         <PersistGate loading={null} persistor={persistor}>
