@@ -4,7 +4,7 @@ import { AppBar, Toolbar, Typography } from '@material-ui/core';
 
 const Home = ({ children }) => (
   <React.Fragment>
-    <AppBar position="static" color="default">
+    <AppBar position="static">
       <Toolbar>
         <Typography variant="title">React 16 | RR 4 Boilerplate</Typography>
       </Toolbar>

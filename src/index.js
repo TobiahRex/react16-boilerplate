@@ -5,15 +5,15 @@ import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { PersistGate } from 'redux-persist/integration/react';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import configureStore, { history } from './redux/configureStore';
 import Root from './components/Root';
 import './styles/style.scss'; //eslint-disable-line
+import './styles/light-bootstrap-dashboard.css';
+
 const { store, persistor } = configureStore();
 
 render(
   <React.Fragment>
-    <CssBaseline />
     <AppContainer>
       <PersistGate loading={null} persistor={persistor}>
         <Root store={store} history={history} />
