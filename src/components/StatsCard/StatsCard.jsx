@@ -1,28 +1,35 @@
-import React, { Component } from "react";
-import { Row, Col } from "react-bootstrap";
+/* eslint-disable lines-between-class-members, react/prop-types */
+
+import React, { Component } from 'react';
+import { Row, Col } from 'react-bootstrap';
 
 export class StatsCard extends Component {
   render() {
+    const {
+      bigIcon,
+      statsText,
+      statsValue,
+      statsIcon,
+      statsIconText
+    } = this.props;
     return (
       <div className="card card-stats">
         <div className="content">
           <Row>
             <Col xs={5}>
-              <div className="icon-big text-center icon-warning">
-                {this.props.bigIcon}
-              </div>
+              <div className="icon-big text-center icon-warning">{bigIcon}</div>
             </Col>
             <Col xs={7}>
               <div className="numbers">
-                <p>{this.props.statsText}</p>
-                {this.props.statsValue}
+                <p>{statsText}</p>
+                {statsValue}
               </div>
             </Col>
           </Row>
           <div className="footer">
             <hr />
             <div className="stats">
-              {this.props.statsIcon} {this.props.statsIconText}
+              {statsIcon} {statsIconText}
             </div>
           </div>
         </div>

@@ -1,14 +1,13 @@
 /* eslint-disable lines-between-class-members */
 
 import React from 'react';
-import { Switch, Redirect, Route, NavLink } from 'react-router-dom';
+import { Switch, Redirect, Route } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import dashboardRoutes from '../../routes/Dashboard';
 
 class Dashboard extends React.Component {
   render() {
-    const activeStyle = { color: 'blue' };
     return (
       <div className="wrapper">
         <Sidebar {...this.props} />
