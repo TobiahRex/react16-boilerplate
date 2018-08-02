@@ -1,27 +1,30 @@
-import React, { Component } from "react";
+/* eslint-disable lines-between-class-members, react/prop-types */
+import React, { Component } from 'react';
 
 class CustomCheckbox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      is_checked: props.isChecked ? true : false
+      isChecked: props.isChecked ? true : false
     };
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick() {
-    this.setState({ is_checked: !this.state.is_checked });
+    const { isChecked } = this.state;
+    this.setState({ isChecked: !isChecked });
   }
   render() {
+    const { isChecked: stateChecked } = this.state;
     const { isChecked, number, label, inline, ...rest } = this.props;
     const classes =
-      inline !== undefined ? "checkbox checkbox-inline" : "checkbox";
+      inline !== undefined ? 'checkbox checkbox-inline' : 'checkbox';
     return (
       <div className={classes}>
         <input
           id={number}
           type="checkbox"
           onChange={this.handleClick}
-          checked={this.state.is_checked}
+          checked={stateChecked}
           {...rest}
         />
         <label htmlFor={number}>{label}</label>
