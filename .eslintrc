@@ -42,7 +42,7 @@ rules:
     - 0
     - props: false
   react/prefer-stateless-function:
-    - 2
+    - 0
     - ignorePureComponents: true
   react/jsx-filename-extension: 0
   import/no-extraneous-dependencies:
