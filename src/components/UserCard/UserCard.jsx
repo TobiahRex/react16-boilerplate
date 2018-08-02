@@ -1,31 +1,36 @@
-import React, { Component } from "react";
+/* eslint-disable lines-between-class-members, react/prop-types */
+import React, { Component } from 'react';
 
 export class UserCard extends Component {
   render() {
+    const {
+      bgImage,
+      avatar,
+      userName,
+      description,
+      socials,
+      name
+    } = this.props;
     return (
       <div className="card card-user">
         <div className="image">
-          <img src={this.props.bgImage} alt="..." />
+          <img src={bgImage} alt="..." />
         </div>
         <div className="content">
           <div className="author">
             <a href="#pablo">
-              <img
-                className="avatar border-gray"
-                src={this.props.avatar}
-                alt="..."
-              />
+              <img className="avatar border-gray" src={avatar} alt="..." />
               <h4 className="title">
-                {this.props.name}
+                {name}
                 <br />
-                <small>{this.props.userName}</small>
+                <small>{userName}</small>
               </h4>
             </a>
           </div>
-          <p className="description text-center">{this.props.description}</p>
+          <p className="description text-center">{description}</p>
         </div>
         <hr />
-        <div className="text-center">{this.props.socials}</div>
+        <div className="text-center">{socials}</div>
       </div>
     );
   }
