@@ -1,14 +1,23 @@
 import Cryptos from '../views/Cryptos/Cryptos';
-import Dashboard from '../views/Dashboard/Dashboard';
+import Title from '../views/Title/Title';
 
 const dashboardRoutes = [
   {
     path: '/dashboard',
-    component: Dashboard
+    name: 'Home',
+    component: Title
   },
   {
     path: '/cryptos',
+    name: 'Cryptos',
     component: Cryptos
+  },
+  {
+    redirect: true,
+    path: '/',
+    to: '/dashboard',
+    name: 'Dashboard',
+    component: Title
   }
 ];
 
