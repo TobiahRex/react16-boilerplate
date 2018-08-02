@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+/* eslint-disable lines-between-class-members, react/prop-types */
+import React, { Component } from 'react';
 
 class CustomRadio extends Component {
   render() {
