@@ -1,30 +1,44 @@
-/* eslint-disable react/destructuring-assignment, prefer-template, react/prop-types, operator-linebreak */
+/* eslint-disable prefer-template, react/prop-types, operator-linebreak */
 import React, { Component } from 'react';
 
 export class Card extends Component {
   render() {
+    const {
+      plain,
+      hCenter,
+      title,
+      category,
+      content,
+      ctAllIcons,
+      ctTableFullWidth,
+      ctTableResponsive,
+      ctTableUpgrade,
+      legend,
+      stats,
+      statsIcon
+    } = this.props;
     return (
-      <div className={'card' + (this.props.plain ? ' card-plain' : '')}>
-        <div className={'header' + (this.props.hCenter ? ' text-center' : '')}>
-          <h4 className="title">{this.props.title}</h4>
-          <p className="category">{this.props.category}</p>
+      <div className={'card' + (plain ? ' card-plain' : '')}>
+        <div className={'header' + (hCenter ? ' text-center' : '')}>
+          <h4 className="title">{title}</h4>
+          <p className="category">{category}</p>
         </div>
         <div
           className={
             'content' +
-            (this.props.ctAllIcons ? ' all-icons' : '') +
-            (this.props.ctTableFullWidth ? ' table-full-width' : '') +
-            (this.props.ctTableResponsive ? ' table-responsive' : '') +
-            (this.props.ctTableUpgrade ? ' table-upgrade' : '')
+            (ctAllIcons ? ' all-icons' : '') +
+            (ctTableFullWidth ? ' table-full-width' : '') +
+            (ctTableResponsive ? ' table-responsive' : '') +
+            (ctTableUpgrade ? ' table-upgrade' : '')
           }
         >
-          {this.props.content}
+          {content}
 
           <div className="footer">
-            {this.props.legend}
-            {this.props.stats != null ? <hr /> : ''}
+            {legend}
+            {stats != null ? <hr /> : ''}
             <div className="stats">
-              <i className={this.props.statsIcon} /> {this.props.stats}
+              <i className={statsIcon} /> {stats}
             </div>
           </div>
         </div>
