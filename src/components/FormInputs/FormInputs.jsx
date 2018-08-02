@@ -1,5 +1,6 @@
-import React, { Component } from "react";
-import { FormGroup, ControlLabel, FormControl, Row } from "react-bootstrap";
+/* eslint-disable lines-between-class-members, react/prop-types */
+import React, { Component } from 'react';
+import { FormGroup, ControlLabel, FormControl, Row } from 'react-bootstrap';
 
 function FieldGroup({ label, ...props }) {
   return (
@@ -12,11 +13,12 @@ function FieldGroup({ label, ...props }) {
 
 export class FormInputs extends Component {
   render() {
-    var row = [];
-    for (var i = 0; i < this.props.ncols.length; i++) {
+    const { ncols, properties } = this.props;
+    const row = [];
+    for (let i = 0; i < ncols.length; i += 1) {
       row.push(
-        <div key={i} className={this.props.ncols[i]}>
-          <FieldGroup {...this.props.proprieties[i]} />
+        <div key={i} className={ncols[i]}>
+          <FieldGroup {...properties[i]} />
         </div>
       );
     }
