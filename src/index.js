@@ -7,8 +7,13 @@ import { AppContainer } from 'react-hot-loader';
 import { PersistGate } from 'redux-persist/integration/react';
 import configureStore, { history } from './redux/configureStore';
 import Root from './views/Root';
-import './styles/style.scss'; //eslint-disable-line
-import './styles/light-bootstrap-dashboard.css';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './assets/css/animate.min.css';
+import './assets/sass/light-bootstrap-dashboard.css?v=1.2.0'; // eslint-disable-line
+import './assets/css/light-bootstrap-template.css';
+import './assets/css/pe-icon-7-stroke.css';
+import './assets/styles/style.scss'; //eslint-disable-line
 
 const { store, persistor } = configureStore();
 

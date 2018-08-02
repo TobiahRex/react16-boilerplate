@@ -38,11 +38,13 @@ class Cryptos extends React.Component {
                         }) => {
                           return (
                             <tr key={_id}>
-                              <td>{symbol}</td>
-                              <td>{price}</td>
-                              <td>{volume}</td>
-                              <td>{priceChangePercent}</td>
-                              <td>{exchange}</td>
+                              <React.Fragment>
+                                <td>{symbol}</td>
+                                <td>{price}</td>
+                                <td>{volume}</td>
+                                <td>{exchange}</td>
+                                <td>{priceChangePercent}</td>
+                              </React.Fragment>
                             </tr>
                           );
                         }
