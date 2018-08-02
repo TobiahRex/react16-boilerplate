@@ -3,6 +3,7 @@
 import React from 'react';
 import { Switch, Redirect, Route, NavLink } from 'react-router-dom';
 import Header from '../../components/Header/Header';
+import Sidebar from '../../components/Sidebar/Sidebar';
 import dashboardRoutes from '../../routes/Dashboard';
 
 class Dashboard extends React.Component {
@@ -10,8 +11,9 @@ class Dashboard extends React.Component {
     const activeStyle = { color: 'blue' };
     return (
       <div className="wrapper">
-        <Header {...this.props} />
+        <Sidebar {...this.props} />
         <div id="main-panel" className="main-panel">
+          <Header {...this.props} />
           <NavLink exact to="/" activeStyle={activeStyle}>
             Home
           </NavLink>

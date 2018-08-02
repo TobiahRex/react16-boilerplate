@@ -1,12 +1,14 @@
-import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+/* eslint-disable lines-between-class-members, react/prop-types */
 
-import HeaderLinks from "../Header/HeaderLinks.jsx";
+import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 
-import imagine from "assets/img/sidebar-3.jpg";
-import logo from "assets/img/reactlogo.png";
+import HeaderLinks from '../Header/HeaderLinks';
 
-import dashboardRoutes from "routes/dashboard.jsx";
+import imagine from '../../assets/img/sidebar-3.jpg';
+import logo from '../../assets/img/reactlogo.png';
+
+import dashboardRoutes from '../../routes/Dashboard';
 
 class Sidebar extends Component {
   constructor(props) {
@@ -16,18 +18,22 @@ class Sidebar extends Component {
     };
   }
   activeRoute(routeName) {
-    return this.props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
+    const { location } = this.props;
+
+    return location.pathname.indexOf(routeName) > -1 ? 'active' : '';
   }
   updateDimensions() {
     this.setState({ width: window.innerWidth });
   }
   componentDidMount() {
     this.updateDimensions();
-    window.addEventListener("resize", this.updateDimensions.bind(this));
+    window.addEventListener('resize', this.updateDimensions.bind(this));
   }
   render() {
+    const { width } = this.state;
+
     const sidebarBackground = {
-      backgroundImage: "url(" + imagine + ")"
+      backgroundImage: `url(${imagine})`
     };
     return (
       <div
@@ -55,14 +61,14 @@ class Sidebar extends Component {
         </div>
         <div className="sidebar-wrapper">
           <ul className="nav">
-            {this.state.width <= 991 ? <HeaderLinks /> : null}
+            {width <= 991 ? <HeaderLinks /> : null}
             {dashboardRoutes.map((prop, key) => {
-              if (!prop.redirect)
+              if (!prop.redirect) {
                 return (
                   <li
                     className={
                       prop.upgrade
-                        ? "active active-pro"
+                        ? 'active active-pro'
                         : this.activeRoute(prop.path)
                     }
                     key={key}
@@ -77,6 +83,7 @@ class Sidebar extends Component {
                     </NavLink>
                   </li>
                 );
+              }
               return null;
             })}
           </ul>
