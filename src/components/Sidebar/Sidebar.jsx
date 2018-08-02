@@ -4,10 +4,8 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import HeaderLinks from '../Header/HeaderLinks';
-
-import imagine from '../../assets/img/sidebar-3.jpg';
+import imagine from '../../assets/img/sidebar-bitcoin.jpg';
 import logo from '../../assets/img/reactlogo.png';
-
 import dashboardRoutes from '../../routes/Dashboard';
 
 class Sidebar extends Component {
@@ -56,7 +54,7 @@ class Sidebar extends Component {
             href="https://www.creative-tim.com"
             className="simple-text logo-normal"
           >
-            Creative Tim
+            React Template
           </a>
         </div>
         <div className="sidebar-wrapper">

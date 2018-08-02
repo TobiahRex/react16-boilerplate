@@ -14,18 +14,6 @@ class Dashboard extends React.Component {
         <Sidebar {...this.props} />
         <div id="main-panel" className="main-panel">
           <Header {...this.props} />
-          <NavLink exact to="/" activeStyle={activeStyle}>
-            Home
-          </NavLink>
-          {' | '}
-          <NavLink to="/cryptos" activeStyle={activeStyle}>
-            Demo Crypto Table
-          </NavLink>
-          {' | '}
-          <NavLink to="/things" activeStyle={activeStyle}>
-            Demo CRUD
-          </NavLink>
-          {' | '}
           <Switch>
             {dashboardRoutes.map((prop, key) => {
               if (prop.redirect) {
