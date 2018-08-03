@@ -19,6 +19,7 @@ env:
   mocha: true
 
 rules:
+  operator-linebreak: 0
   new-cap: 0
   prefer-const: 1
   one-var: 0

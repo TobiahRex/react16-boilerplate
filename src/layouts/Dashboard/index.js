@@ -16,7 +16,8 @@ class Dashboard extends React.Component {
     super(props);
 
     this.state = {
-      _notificationSystem: null
+      _notificationSystem: null,
+      _notificationId: ''
     };
   }
   componentDidMount() {
@@ -25,7 +26,22 @@ class Dashboard extends React.Component {
     });
   }
 
-  handleNotificationClick(position) {
+  componentDidUpdate(e) {
+    if (
+      window.innerWidth < 993 &&
+      e.history.location.pathname !== e.location.pathname &&
+      document.documentElement.className.indexOf('nav-open') !== -1
+    ) {
+      document.documentElement.classList.toggle('nav-open');
+    }
+    if (e.history.action === 'PUSH') {
+      document.documentElement.scrollTop = 0;
+      document.scrollingElement.scrollTop = 0;
+      this.ref_mainPanel.scrollTop = 0;
+    }
+  }
+
+  handleNotificationClick(position, uid) {
     const color = Math.floor(Math.random() * 4 + 1);
     let level;
     switch (color) {
@@ -46,6 +62,7 @@ class Dashboard extends React.Component {
     }
     const { _notificationSystem } = this.state;
     _notificationSystem.addNotification({
+      uid,
       level,
       position,
       autoDismiss: 15,
@@ -57,6 +74,7 @@ class Dashboard extends React.Component {
         </div>
       )
     });
+    this.setState(prevState => ({ ...prevState, _notificationId: uid }));
   }
   render() {
     return (
