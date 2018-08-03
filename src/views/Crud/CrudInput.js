@@ -3,11 +3,8 @@ import PropTypes from 'prop-types';
 import Card from '../../components/Card/Card';
 import FormInline from '../../components/FormInputs/FormInline';
 import CrudTable from './CrudTable';
-import ApiNotificaitons from '../../components/ApiNotifications';
-// import ThingList from './thingList';
-// import InputNewThing from './newThing';
 
-const CrudInput = ({ onSubmit, crudMethods, things, apiStatus }) => {
+const CrudInput = ({ onSubmit, crudMethods, things }) => {
   return (
     <Card
       title="CRUD"
@@ -41,29 +38,24 @@ const CrudInput = ({ onSubmit, crudMethods, things, apiStatus }) => {
             ]}
           />
           <CrudTable list={things} crudMethods={crudMethods} />
-          <ApiNotifications status={apiStatus} />
         </React.Fragment>
       }
     />
   );
 };
 
-const { func, string, shape, arrayOf, bool, number } = PropTypes;
+const { func, string, shape, arrayOf } = PropTypes;
 
 CrudInput.propTypes = {
   onSubmit: func.isRequired,
+  handleNotification: func.isRequired,
   crudMethods: shape({
     fetching: func,
     createThing: func,
     editThing: func,
     removeThing: func
   }).isRequired,
-  things: arrayOf(string),
-  apiStatus: shape({
-    error: bool,
-    count: number,
-    fetching: bool
-  }).isRequired
+  things: arrayOf(string)
 };
 
 CrudInput.defaultProps = {

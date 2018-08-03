@@ -75,6 +75,7 @@
     "ramda": "^0.25.0",
     "react-bootstrap": "^0.32.1",
     "react-hot-loader": "^4.3.4",
+    "react-notification-system": "^0.2.17",
     "request": "^2.75.0",
     "rimraf": "^2.5.4",
     "sass-loader": "^7.0.3",
