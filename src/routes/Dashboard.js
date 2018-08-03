@@ -1,5 +1,6 @@
-import Cryptos from '../views/Cryptos/Cryptos';
 import Title from '../views/Title/Title';
+import Cryptos from '../views/Cryptos/Cryptos';
+import Crud from '../views/Crud/Crud';
 
 const dashboardRoutes = [
   {
@@ -11,6 +12,11 @@ const dashboardRoutes = [
     path: '/cryptos',
     name: 'Cryptos',
     component: Cryptos
+  },
+  {
+    path: '/crud',
+    name: 'Crud',
+    component: Crud
   },
   {
     redirect: true,
