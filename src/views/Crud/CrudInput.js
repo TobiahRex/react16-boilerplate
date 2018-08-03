@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Card from '../../components/Card/Card';
 import FormInline from '../../components/FormInputs/FormInline';
 import CrudTable from './CrudTable';
-import ApiStatusBar from '../../components/StatusBar';
+import ApiNotificaitons from '../../components/ApiNotifications';
 // import ThingList from './thingList';
 // import InputNewThing from './newThing';
 
@@ -41,7 +41,7 @@ const CrudInput = ({ onSubmit, crudMethods, things, apiStatus }) => {
             ]}
           />
           <CrudTable list={things} crudMethods={crudMethods} />
-          <ApiStatusBar status={apiStatus} />
+          <ApiNotifications status={apiStatus} />
         </React.Fragment>
       }
     />

@@ -19,15 +19,16 @@ class CrudTable extends React.Component {
       show: false,
       message: '',
       statusInfo: null,
-      count: false,
-    }
+      count: false
+    };
   }
 
   componentWillReceiveProps(nextProps) {
     const { status: stateStatus } = this.state;
     const { status: nextStatus } = this.nextProps;
 
-    if ( // If fetching was successfully completed
+    if (
+      // If fetching was successfully completed
       stateStatus.fetching &&
       !stateStatus.error &&
       !nextStatus.error &&
@@ -37,13 +38,15 @@ class CrudTable extends React.Component {
         message: 'Database updated SUCCESSFULLY!',
         status: {
           error: nextStatus.error,
-          fetching: nextStatus.fetching,
+          fetching: nextStatus.fetching
         },
-        show: true,
+        show: true
       });
       return true;
+    }
 
-    } else if ( // If we just started fetching
+    if (
+      // If we just started fetching
       !nextStatus.error &&
       nextStatus.fetching
     ) {
@@ -51,12 +54,15 @@ class CrudTable extends React.Component {
         message: 'API Request in Progress',
         status: {
           error: nextStatus.error,
-          fetching: nextStatus.fetching,
+          fetching: nextStatus.fetching
         },
         show: true
       });
       return true;
-    } else if ( // if fetching yielded an error
+    }
+
+    if (
+      // if fetching yielded an error
       !stateStatus.error &&
       nextStatus.error
     ) {
@@ -64,29 +70,25 @@ class CrudTable extends React.Component {
         message: 'Database update FAILED!',
         status: {
           error: nextStatus.error,
-          fetching: nextStatus.fetching,
+          fetching: nextStatus.fetching
         },
         show: true
       });
       return true;
     }
-    ``// if there is some other reason this lifecycle method is called, then continue w/Reconcilliation.
+
+    // if there is some other reason this lifecycle method is called, then continue w/Reconcilliation.
     return true;
   }
 
-  determineType = () => {
-    const { type } = this.props;
-
-    switch(type) {
-      case 'api': {
-
-      },
-      defult: throw Error('You must provide a status object to render the StatusBar component.');
-    }
+  onUserClose = () => {
+    this.setState(() => ({
+      show: false
+    }));
   };
 
   render() {
-    const { type, status } = this.props;
+    const { show, message } = this.state;
 
     return (
       <div>
