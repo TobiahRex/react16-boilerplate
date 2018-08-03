@@ -8,10 +8,16 @@ import thingActions from '../../redux/thing';
 import CrudInput from './CrudInput';
 // import { UserCard } from '../../components/UserCard/UserCard';
 // import avatar from '../../assets/images/faces/face-3.jpg';
-const { func, shape } = PropTypes;
+const { func, shape, arrayOf, string, bool, number } = PropTypes;
 
 class Crud extends Component {
   static propTypes = {
+    things: arrayOf(string),
+    apiStatus: shape({
+      error: bool,
+      count: number,
+      fetching: bool
+    }).isRequired,
     redux: shape({
       fetching: func.isRequired,
       createThing: func.isRequired,
@@ -19,6 +25,11 @@ class Crud extends Component {
       deleteThing: func.isRequired
     }).isRequired
   };
+
+  static defaultProps = {
+    things: []
+  };
+
   constructor(props) {
     super(props);
 
@@ -36,14 +47,20 @@ class Crud extends Component {
     this.setState({ inputData: '' });
   };
   render() {
-    const { redux } = this.props;
+    const { redux, things, apiStatus } = this.props;
     const { inputData } = this.state;
     return (
       <div className="content">
         <Grid fluid>
           <Row>
             <Col md={12}>
-              <CrudInput crudMethods={redux} input={inputData} />
+              <CrudInput
+                onSubmit={this.onSubmit}
+                things={things}
+                apiStatus={apiStatus}
+                crudMethods={redux}
+                input={inputData}
+              />
             </Col>
           </Row>
         </Grid>
@@ -58,9 +75,11 @@ export default connect(
     apiStatus
   }),
   dispatch => ({
-    fetching: () => dispatch(apiActions.fetching()),
-    createThing: data => dispatch(thingActions.createThing(data)),
-    removeThing: id => dispatch(thingActions.removeThing(id)),
-    editThing: dataUpdate => dispatch(thingActions.editThing(dataUpdate))
+    redux: {
+      fetching: () => dispatch(apiActions.fetching()),
+      createThing: data => dispatch(thingActions.createThing(data)),
+      removeThing: id => dispatch(thingActions.removeThing(id)),
+      editThing: dataUpdate => dispatch(thingActions.editThing(dataUpdate))
+    }
   })
 )(Crud);
