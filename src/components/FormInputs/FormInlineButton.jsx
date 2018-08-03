@@ -11,11 +11,10 @@ import Button from '../CustomButton/CustomButton';
 
 function FieldGroup({
   label,
-  bsStyle,
   groupWidth,
   inputWidth,
   onSubmit,
-  btnShape,
+  buttons,
   ...props
 }) {
   return (
@@ -26,16 +25,23 @@ function FieldGroup({
         <FormControl {...props} />
       </FormGroup>
       {'  '}
-      <Button
-        type="button"
-        bsStyle={bsStyle}
-        fill={btnShape === 'fill'}
-        round={btnShape === 'round'}
-        simple={btnShape === 'simple'}
-        block={btnShape === 'block'}
-      >
-        Save
-      </Button>
+      {buttons.map(({ type, title, btnShape, bsStyle }) => {
+        return (
+          <React.Fragment>
+            <Button
+              type={type}
+              bsStyle={bsStyle}
+              fill={btnShape === 'fill'}
+              round={btnShape === 'round'}
+              simple={btnShape === 'simple'}
+              block={btnShape === 'block'}
+            >
+              {title}
+            </Button>
+            {'  '}
+          </React.Fragment>
+        );
+      })}
     </Form>
   );
 }

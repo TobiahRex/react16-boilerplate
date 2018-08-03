@@ -1,15 +1,36 @@
 /* eslint-disable react/jsx-wrap-multilines, lines-between-class-members */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
 import { Card } from '../../components/Card/Card';
 import { FormInline } from '../../components/FormInputs/FormInlineButton';
 // import { UserCard } from '../../components/UserCard/UserCard';
 // import avatar from '../../assets/images/faces/face-3.jpg';
+const { func, shape } = PropTypes;
 
-class UserProfile extends Component {
+class Crud extends Component {
+  static propTypes = {
+    redux: shape({
+      fetching: func.isRequired,
+      createThing: func.isRequired,
+      editThing: func.isRequired,
+      deleteThing: func.isRequired
+    })
+  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      newThing: ''
+    };
+  }
   onSubmit = e => {
     e.preventDefault();
+    this.props.fetching();
+    this.props.createThing({ name: this.state.newThing });
+    this.setState({ newThing: '' });
   };
   render() {
     return (
@@ -27,21 +48,23 @@ class UserProfile extends Component {
                       {
                         onSubmit: this.onSubmit,
                         label: 'New Thing',
-                        bsStyle: 'primary',
                         type: 'text',
-                        buttons: {
-                          btn1: {
-                            btnShape: 'fill',
-                            title: 'Save',
-                          },
-                          btn2: {
-                            btnShape: '',
-                            title: 'Clear',
-                          }
-                        }
-                        btnShape: 'fill',
                         bsClass: 'form-control',
-                        defaultValue: 'Enter some data....'
+                        placeholder: 'Enter some data....',
+                        buttons: [
+                          {
+                            type: 'button',
+                            bsStyle: 'primary',
+                            btnShape: 'fill',
+                            title: 'Save'
+                          },
+                          {
+                            type: 'button',
+                            bsStyle: 'primary',
+                            btnShape: '',
+                            title: 'Clear'
+                          }
+                        ]
                       }
                     ]}
                   />
@@ -55,4 +78,9 @@ class UserProfile extends Component {
   }
 }
 
-export default UserProfile;
+export default connect(
+  state => {},
+  dispatch => ({
+    fetching: () => dispatch(apiActions.fetching)
+  })
+)(Crud);
