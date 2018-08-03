@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Card from '../../components/Card/Card';
 import FormInline from '../../components/FormInputs/FormInline';
 import CrudTable from './CrudTable';
+import StatusBar as ApiStatusBar from '../../components/StatusBar';
 // import ThingList from './thingList';
 // import InputNewThing from './newThing';
 
@@ -12,33 +13,39 @@ const CrudInput = ({ onSubmit, crudMethods, things, apiStatus }) => {
       title="CRUD"
       category="Save & Retrieve Data from Mongo DB"
       content={
-        <FormInline
-          ncols={['col-md-8']}
-          properties={[
-            {
-              onSubmit,
-              label: 'New Thing',
-              type: 'text',
-              bsClass: 'form-control',
-              placeholder: 'Enter some data....',
-              buttons: [
-                {
-                  type: 'button',
-                  bsStyle: 'primary',
-                  btnShape: 'fill',
-                  title: 'Save'
-                },
-                {
-                  type: 'button',
-                  bsStyle: 'primary',
-                  btnShape: '',
-                  title: 'Clear'
-                }
-              ]
-            }
-          ]}
-        />
-        <CrudTable list={things} />
+        <React.Fragment>
+          <FormInline
+            ncols={['col-md-8']}
+            properties={[
+              {
+                onSubmit,
+                label: 'New Thing',
+                type: 'text',
+                bsClass: 'form-control',
+                placeholder: 'Enter some data....',
+                buttons: [
+                  {
+                    type: 'button',
+                    bsStyle: 'primary',
+                    btnShape: 'fill',
+                    title: 'Save'
+                  },
+                  {
+                    type: 'button',
+                    bsStyle: 'primary',
+                    btnShape: '',
+                    title: 'Clear'
+                  }
+                ]
+              }
+            ]}
+          />
+          <CrudTable
+            list={things}
+            crudMethods={crudMethods}
+          />
+          <ApiStatusBar />
+        </React.Fragment>
       }
     />
   );
