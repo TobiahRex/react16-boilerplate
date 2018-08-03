@@ -41,8 +41,13 @@ class Dashboard extends React.Component {
     }
   }
 
-  handleNotificationClick(position, uid) {
-    const color = Math.floor(Math.random() * 4 + 1);
+  showNotification(
+    icon,
+    color,
+    message = '<YOU FORGOT THE MESSAGE>',
+    position = 'bc',
+    uid = Math.floor(Math.random() * 10000)
+  ) {
     let level;
     switch (color) {
       case 1:
@@ -63,16 +68,18 @@ class Dashboard extends React.Component {
     const { _notificationSystem } = this.state;
     _notificationSystem.addNotification({
       uid,
+      icon,
       level,
+      message,
       position,
       autoDismiss: 15,
-      title: <span data-notify="icon" className="pe-7s-gift" />,
-      message: (
-        <div>
-          Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for
-          every web developer.
-        </div>
-      )
+      title: <span data-notify="icon" className={icon} />
+      // message: (
+      //   <div>
+      //     Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for
+      //     every web developer.
+      //   </div>
+      // )
     });
     this.setState(prevState => ({ ...prevState, _notificationId: uid }));
   }
@@ -96,6 +103,20 @@ class Dashboard extends React.Component {
           <Header {...this.props} />
           <Switch>
             {dashboardRoutes.map((prop, key) => {
+              if (prop.name === 'Crud') {
+                return (
+                  <Route
+                    path={prop.path}
+                    key={key}
+                    render={routeProps => (
+                      <prop.component
+                        {...routeProps}
+                        showNotification={this.showNotification}
+                      />
+                    )}
+                  />
+                );
+              }
               if (prop.redirect) {
                 return <Redirect from={prop.path} to={prop.to} key={key} />;
               }
