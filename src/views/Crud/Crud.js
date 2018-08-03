@@ -8,6 +8,7 @@ import thingActions from '../../redux/thing';
 
 import { Card } from '../../components/Card/Card';
 import { FormInline } from '../../components/FormInputs/FormInlineButton';
+import CrudInput from './CrudInput';
 // import { UserCard } from '../../components/UserCard/UserCard';
 // import avatar from '../../assets/images/faces/face-3.jpg';
 const { func, shape } = PropTypes;
@@ -25,56 +26,27 @@ class Crud extends Component {
     super(props);
 
     this.state = {
-      newThing: ''
+      inputData: ''
     };
   }
   onSubmit = e => {
     e.preventDefault();
     const { redux } = this.props;
-    const { newThing } = this.state;
+    const { inputData } = this.state;
 
     redux.fetching();
-    redux.createThing({ name: newThing });
-    this.setState({ newThing: '' });
+    redux.createThing({ name: inputData });
+    this.setState({ inputData: '' });
   };
   render() {
+    const { redux } = this.props;
+    const { inputData } = this.state;
     return (
       <div className="content">
         <Grid fluid>
           <Row>
             <Col md={12}>
-              <Card
-                title="CRUD"
-                category="Save & Retrieve Data from Mongo DB"
-                content={
-                  <FormInline
-                    ncols={['col-md-8']}
-                    properties={[
-                      {
-                        onSubmit: this.onSubmit,
-                        label: 'New Thing',
-                        type: 'text',
-                        bsClass: 'form-control',
-                        placeholder: 'Enter some data....',
-                        buttons: [
-                          {
-                            type: 'button',
-                            bsStyle: 'primary',
-                            btnShape: 'fill',
-                            title: 'Save'
-                          },
-                          {
-                            type: 'button',
-                            bsStyle: 'primary',
-                            btnShape: '',
-                            title: 'Clear'
-                          }
-                        ]
-                      }
-                    ]}
-                  />
-                }
-              />
+              <CrudInput crudMethods={redux} input={inputData} />
             </Col>
           </Row>
         </Grid>
