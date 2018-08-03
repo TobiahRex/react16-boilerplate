@@ -6,6 +6,7 @@ function FieldGroup({ label, ...props }) {
   return (
     <FormGroup>
       <ControlLabel>{label}</ControlLabel>
+      {'   '}
       <FormControl {...props} />
     </FormGroup>
   );
