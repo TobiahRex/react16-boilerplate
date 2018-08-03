@@ -11,7 +11,7 @@ const { Types, Creators } = createActions({
   editThingSuccess: ['thing'],
   removeThing: ['thingId'],
   removeThingSuccess: ['thing'],
-  getThings: null,
+  getThings: null
 });
 
 // ------- Initial State ------- //
@@ -32,12 +32,12 @@ const editThingSuccess = (state, { thing }) => {
 };
 
 const removeThingSuccess = (state, { thing }) =>
-state.filter(stateThing => stateThing._id !== thing._id);
+  state.filter(stateThing => stateThing._id !== thing._id);
 
 // ------- create Reducer ------- //
 export const thingReducer = createReducer(INITIAL_STATE, {
   [Types.GET_ALL_THINGS_SUCCESS]: getAllThingsSuccess,
   [Types.EDIT_THING_SUCCESS]: editThingSuccess,
   [Types.REMOVE_THING_SUCCESS]: removeThingSuccess,
-  [Types.CREATE_THING_SUCCESS]: createThingSuccess,
+  [Types.CREATE_THING_SUCCESS]: createThingSuccess
 });

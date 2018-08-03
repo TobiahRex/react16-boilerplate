@@ -1,5 +1,3 @@
-/* eslint-disable operator-linebreak */
-
 import { createStore, applyMiddleware, compose } from 'redux';
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import { routerMiddleware } from 'react-router-redux';
@@ -9,10 +7,10 @@ import { createLogger } from 'redux-logger';
 import { persistStore } from 'redux-persist';
 import RehydrationServices from '../services/rehydration';
 import rootSaga from '../sagas';
-import rootReducer from '.';
+import rootReducer from './rootReducer';
 
-import thingActions from './ThingRedux';
-import apiActions from './ApiRedux';
+import thingActions from './thing';
+import apiActions from './api';
 
 export const history = createHistory();
 

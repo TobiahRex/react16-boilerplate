@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import apiActions from '../../redux/api';
+import thingActions from '../../redux/thing';
 
 import { Card } from '../../components/Card/Card';
 import { FormInline } from '../../components/FormInputs/FormInlineButton';
@@ -17,7 +19,7 @@ class Crud extends Component {
       createThing: func.isRequired,
       editThing: func.isRequired,
       deleteThing: func.isRequired
-    })
+    }).isRequired
   };
   constructor(props) {
     super(props);
@@ -28,8 +30,11 @@ class Crud extends Component {
   }
   onSubmit = e => {
     e.preventDefault();
-    this.props.fetching();
-    this.props.createThing({ name: this.state.newThing });
+    const { redux } = this.props;
+    const { newThing } = this.state;
+
+    redux.fetching();
+    redux.createThing({ name: newThing });
     this.setState({ newThing: '' });
   };
   render() {
@@ -79,8 +84,14 @@ class Crud extends Component {
 }
 
 export default connect(
-  state => {},
+  ({ things, api: apiStatus }) => ({
+    things,
+    apiStatus
+  }),
   dispatch => ({
-    fetching: () => dispatch(apiActions.fetching)
+    fetching: () => dispatch(apiActions.fetching()),
+    createThing: data => dispatch(thingActions.createThing(data)),
+    removeThing: id => dispatch(thingActions.removeThing(id)),
+    editThing: dataUpdate => dispatch(thingActions.editThing(dataUpdate))
   })
 )(Crud);
