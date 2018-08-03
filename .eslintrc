@@ -33,10 +33,12 @@ rules:
       ignoreUrls: true
       ignoreTemplateLiterals: true
   arrow-body-style: 0
+  react/jsx-wrap-multilines: 0
   react/jsx-boolean-value: 1
   react/sort-comp: 0
   react/no-unused-prop-types: 0
   react/jsx-one-expression-per-line: 0
+  import/no-named-as-default: 0
   lines-between-class-members: 1
   no-param-reassign:
     - 0

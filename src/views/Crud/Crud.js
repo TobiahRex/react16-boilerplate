@@ -5,9 +5,6 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import apiActions from '../../redux/api';
 import thingActions from '../../redux/thing';
-
-import { Card } from '../../components/Card/Card';
-import { FormInline } from '../../components/FormInputs/FormInlineButton';
 import CrudInput from './CrudInput';
 // import { UserCard } from '../../components/UserCard/UserCard';
 // import avatar from '../../assets/images/faces/face-3.jpg';
