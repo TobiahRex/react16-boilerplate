@@ -8,7 +8,6 @@ import { persistStore } from 'redux-persist';
 import RehydrationServices from '../services/rehydration';
 import rootSaga from '../sagas';
 import rootReducer from './rootReducer';
-
 import thingActions from './thing';
 import apiActions from './api';
 
@@ -66,8 +65,8 @@ function configureStoreDev(initialState) {
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('.', () => {
-      const nextReducer = require('.').default; // eslint-disable-line global-require
+    module.hot.accept('./rootReducer', () => {
+      const nextReducer = require('./rootReducer').default; // eslint-disable-line global-require
       store.replaceReducer(nextReducer);
     });
   }

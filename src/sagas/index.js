@@ -8,7 +8,7 @@ import EditThing from './ThingSagas/EditThing';
 import RemoveThing from './ThingSagas/RemoveThing';
 
 // ----- Types ----- //
-import { ThingTypes } from '../redux/ThingRedux';
+import { ThingTypes } from '../redux/thing';
 
 const api = API.createAPI();
 

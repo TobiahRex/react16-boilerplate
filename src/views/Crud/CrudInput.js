@@ -1,12 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
 import Card from '../../components/Card/Card';
 import FormInline from '../../components/FormInputs/FormInline';
-
-import thingActions from '../../redux/thing';
-import apiActions from '../../redux/api';
+import CrudTable from './CrudTable';
 // import ThingList from './thingList';
 // import InputNewThing from './newThing';
 
@@ -42,6 +38,7 @@ const CrudInput = ({ onSubmit, crudMethods, things, apiStatus }) => {
             }
           ]}
         />
+        <CrudTable list={things} />
       }
     />
   );
@@ -50,6 +47,7 @@ const CrudInput = ({ onSubmit, crudMethods, things, apiStatus }) => {
 const { func, string, shape, arrayOf, bool, number } = PropTypes;
 
 CrudInput.propTypes = {
+  onSubmit: func.isRequired,
   crudMethods: shape({
     fetching: func,
     createThing: func,

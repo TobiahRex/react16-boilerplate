@@ -6,8 +6,7 @@ import { connect } from 'react-redux';
 import apiActions from '../../redux/api';
 import thingActions from '../../redux/thing';
 import CrudInput from './CrudInput';
-// import { UserCard } from '../../components/UserCard/UserCard';
-// import avatar from '../../assets/images/faces/face-3.jpg';
+
 const { func, shape, arrayOf, string, bool, number } = PropTypes;
 
 class Crud extends Component {
