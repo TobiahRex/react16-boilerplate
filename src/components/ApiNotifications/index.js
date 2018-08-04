@@ -1,12 +1,11 @@
 /* eslint-disable react/prefer-stateless-function, react/jsx-wrap-multilines, lines-between-class-members */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import Card from '../../components/Card/Card'; // eslint-disable-line
 
 const { str, objectOf, any } = PropTypes;
 
-class CrudTable extends React.Component {
+class ApiNotifications extends React.Component {
   static propTypes = {
     type: str.isRequired,
     status: objectOf(any).isRequired

@@ -21,14 +21,12 @@ class Crud extends Component {
       fetching: func.isRequired,
       createThing: func.isRequired,
       editThing: func.isRequired,
-      deleteThing: func.isRequired
+      removeThing: func.isRequired
     }).isRequired
   };
-
   static defaultProps = {
     things: []
   };
-
   constructor(props) {
     super(props);
 

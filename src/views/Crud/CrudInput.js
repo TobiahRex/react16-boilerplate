@@ -4,7 +4,11 @@ import Card from '../../components/Card/Card';
 import FormInline from '../../components/FormInputs/FormInline';
 import CrudTable from './CrudTable';
 
-const CrudInput = ({ onSubmit, crudMethods, things }) => {
+const CrudInput = ({
+  things,
+  onSubmit,
+  crudMethods: { editThing: cbEdit, removeThing: cbRemove }
+}) => {
   return (
     <Card
       title="CRUD"
@@ -37,7 +41,7 @@ const CrudInput = ({ onSubmit, crudMethods, things }) => {
               }
             ]}
           />
-          <CrudTable list={things} crudMethods={crudMethods} />
+          <CrudTable list={things} cbEdit={cbEdit} cbRemove={cbRemove} />
         </React.Fragment>
       }
     />
@@ -61,3 +65,5 @@ CrudInput.propTypes = {
 CrudInput.defaultProps = {
   things: []
 };
+
+export default CrudInput;

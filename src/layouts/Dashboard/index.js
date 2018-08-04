@@ -22,7 +22,7 @@ class Dashboard extends React.Component {
   }
   componentDidMount() {
     this.setState({
-      _notificationSystem: this.ref_notificationSys.notificationSystem
+      _notificationSystem: this.ref_notificationSys
     });
   }
 
