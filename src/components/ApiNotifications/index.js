@@ -16,15 +16,13 @@ class ApiNotifications extends React.Component {
 
     this.state = {
       show: false,
-      message: '',
-      statusInfo: null,
-      count: false
+      message: ''
     };
   }
 
   componentWillReceiveProps(nextProps) {
     const { status: stateStatus } = this.state;
-    const { status: nextStatus } = this.nextProps;
+    const { status: nextStatus } = nextProps;
 
     if (
       // If fetching was successfully completed
@@ -97,4 +95,4 @@ class ApiNotifications extends React.Component {
   }
 }
 
-export default CrudTable;
+export default ApiNotifications;

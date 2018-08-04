@@ -6,11 +6,13 @@ import { connect } from 'react-redux';
 import apiActions from '../../redux/api';
 import thingActions from '../../redux/thing';
 import CrudCard from './CrudCard';
+import ApiNotifications from '../../components/ApiNotifications';
 
 const { func, shape, arrayOf, string, bool, number } = PropTypes;
 
 class Crud extends Component {
   static propTypes = {
+    showNotification: func.isRequired,
     things: arrayOf(string),
     apiStatus: shape({
       error: bool,
@@ -31,9 +33,81 @@ class Crud extends Component {
     super(props);
 
     this.state = {
-      inputData: ''
+      notificationId: '',
+      inputData: '',
+      apiStatus: {
+        error: false,
+        fetching: false
+      }
     };
   }
+  componentWillReceiveProps(nextProps) {
+    const { showNotification } = this.props;
+    const { apiStatus: stateStatus } = this.state;
+    const { apiStatus: nextStatus } = nextProps;
+
+    let icon, color, message, uid;
+    if (
+      // If fetching was successfully completed
+      stateStatus.fetching &&
+      !stateStatus.error &&
+      !nextStatus.error &&
+      !nextStatus.fetching
+    ) {
+      icon = 'pe-7s-diskette';
+      color = 'success';
+      message = 'Successfully updated database!';
+      uid = new Buffer.from(`${icon}${color}${message}`, 'utf8').toString('base64');
+      showNotification(icon, color, message, uid);
+      this.setState({
+        apiStatus: {
+          error: nextStatus.error,
+          fetching: nextStatus.fetching
+        }
+      });
+      return true;
+    }
+
+    if (
+      // If we just started fetching
+      !nextStatus.error &&
+      nextStatus.fetching
+    ) {
+      this.setState({
+        apiStatus: {
+          error: nextStatus.error,
+          fetching: nextStatus.fetching
+        }
+      });
+      message: 'API Request in Progress',
+      showNotification: true,
+      return true;
+    }
+
+    if (
+      // if fetching yielded an error
+      !stateStatus.error &&
+      nextStatus.error
+    ) {
+      this.setState({
+        apiStatus: {
+          error: nextStatus.error,
+          fetching: nextStatus.fetching
+        }
+      });
+      showNotification: true,
+      message: 'Database update FAILED!',
+      return true;
+    }
+
+    // if there is some other reason this lifecycle method is called, then continue w/Reconcilliation.
+    return true;
+  }
+  onUserClose = () => {
+    this.setState(() => ({
+      show: false
+    }));
+  };
   onSubmit = e => {
     e.preventDefault();
     const { redux } = this.props;
@@ -44,7 +118,7 @@ class Crud extends Component {
     this.setState({ inputData: '' });
   };
   render() {
-    const { redux, things } = this.props;
+    const { apiStatus, redux, things } = this.props;
     const { inputData } = this.state;
     return (
       <div className="content">

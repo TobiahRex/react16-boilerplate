@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Card from '../../components/Card/Card';
-import CrudInput from '../../components/FormInputs/FormInline';
+import CrudInput from '../../components/Forms/FormInline';
 import CrudTable from './CrudTable';
 
 const CrudCard = ({
