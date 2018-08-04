@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Card from '../../components/Card/Card';
-import FormInline from '../../components/FormInputs/FormInline';
+import CrudInput from '../../components/FormInputs/FormInline';
 import CrudTable from './CrudTable';
 
-const CrudInput = ({
+const CrudCard = ({
   things,
   onSubmit,
   crudMethods: { editThing: cbEdit, removeThing: cbRemove }
@@ -15,7 +15,7 @@ const CrudInput = ({
       category="Save & Retrieve Data from Mongo DB"
       content={
         <React.Fragment>
-          <FormInline
+          <CrudInput
             ncols={['col-md-8']}
             properties={[
               {
@@ -50,7 +50,7 @@ const CrudInput = ({
 
 const { func, string, shape, arrayOf } = PropTypes;
 
-CrudInput.propTypes = {
+CrudCard.propTypes = {
   onSubmit: func.isRequired,
   handleNotification: func.isRequired,
   crudMethods: shape({
@@ -62,8 +62,8 @@ CrudInput.propTypes = {
   things: arrayOf(string)
 };
 
-CrudInput.defaultProps = {
+CrudCard.defaultProps = {
   things: []
 };
 
-export default CrudInput;
+export default CrudCard;

@@ -5,7 +5,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import apiActions from '../../redux/api';
 import thingActions from '../../redux/thing';
-import CrudInput from './CrudInput';
+import CrudCard from './CrudCard';
 
 const { func, shape, arrayOf, string, bool, number } = PropTypes;
 
@@ -44,19 +44,18 @@ class Crud extends Component {
     this.setState({ inputData: '' });
   };
   render() {
-    const { redux, things, apiStatus } = this.props;
+    const { redux, things } = this.props;
     const { inputData } = this.state;
     return (
       <div className="content">
         <Grid fluid>
           <Row>
             <Col md={12}>
-              <CrudInput
-                onSubmit={this.onSubmit}
-                things={things}
-                apiStatus={apiStatus}
-                crudMethods={redux}
+              <CrudCard
                 input={inputData}
+                things={things}
+                onSubmit={this.onSubmit}
+                crudMethods={redux}
               />
             </Col>
           </Row>
