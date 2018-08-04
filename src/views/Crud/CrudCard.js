@@ -52,7 +52,6 @@ const { func, string, shape, arrayOf } = PropTypes;
 
 CrudCard.propTypes = {
   onSubmit: func.isRequired,
-  handleNotification: func.isRequired,
   crudMethods: shape({
     fetching: func,
     createThing: func,

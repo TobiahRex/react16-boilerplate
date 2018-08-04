@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import apiActions from '../../redux/api';
 import thingActions from '../../redux/thing';
 import CrudCard from './CrudCard';
-import ApiNotifications from '../../components/ApiNotifications';
 
 const { func, shape, arrayOf, string, bool, number } = PropTypes;
 
@@ -33,7 +32,6 @@ class Crud extends Component {
     super(props);
 
     this.state = {
-      notificationId: '',
       inputData: '',
       apiStatus: {
         error: false,
@@ -46,7 +44,7 @@ class Crud extends Component {
     const { apiStatus: stateStatus } = this.state;
     const { apiStatus: nextStatus } = nextProps;
 
-    let icon, color, message, uid;
+    let icon, color, message;
     if (
       // If fetching was successfully completed
       stateStatus.fetching &&
@@ -57,8 +55,7 @@ class Crud extends Component {
       icon = 'pe-7s-diskette';
       color = 'success';
       message = 'Successfully updated database!';
-      uid = new Buffer.from(`${icon}${color}${message}`, 'utf8').toString('base64');
-      showNotification(icon, color, message, uid);
+      showNotification(icon, color, message);
       this.setState({
         apiStatus: {
           error: nextStatus.error,
@@ -79,8 +76,10 @@ class Crud extends Component {
           fetching: nextStatus.fetching
         }
       });
-      message: 'API Request in Progress',
-      showNotification: true,
+      icon = 'pe-7s-paper-plane';
+      color = 'info';
+      message = 'API Request in Progress';
+      showNotification(icon, color, message);
       return true;
     }
 
@@ -95,19 +94,16 @@ class Crud extends Component {
           fetching: nextStatus.fetching
         }
       });
-      showNotification: true,
-      message: 'Database update FAILED!',
+      icon = 'pe-7s-plug';
+      color = 'info';
+      message = 'Database update FAILED!';
+      showNotification(icon, color, message);
       return true;
     }
 
     // if there is some other reason this lifecycle method is called, then continue w/Reconcilliation.
     return true;
   }
-  onUserClose = () => {
-    this.setState(() => ({
-      show: false
-    }));
-  };
   onSubmit = e => {
     e.preventDefault();
     const { redux } = this.props;
@@ -118,7 +114,7 @@ class Crud extends Component {
     this.setState({ inputData: '' });
   };
   render() {
-    const { apiStatus, redux, things } = this.props;
+    const { redux, things } = this.props;
     const { inputData } = this.state;
     return (
       <div className="content">
@@ -126,7 +122,7 @@ class Crud extends Component {
           <Row>
             <Col md={12}>
               <CrudCard
-                input={inputData}
+                // input={inputData}
                 things={things}
                 onSubmit={this.onSubmit}
                 crudMethods={redux}

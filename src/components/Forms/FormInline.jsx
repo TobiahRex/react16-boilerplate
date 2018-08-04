@@ -25,23 +25,25 @@ function FieldGroup({
         <FormControl {...props} />
       </FormGroup>
       {'  '}
-      {buttons.map(({ type, title, btnShape, bsStyle }) => {
-        return (
-          <React.Fragment>
-            <Button
-              type={type}
-              bsStyle={bsStyle}
-              fill={btnShape === 'fill'}
-              round={btnShape === 'round'}
-              simple={btnShape === 'simple'}
-              block={btnShape === 'block'}
-            >
-              {title}
-            </Button>
-            {'  '}
-          </React.Fragment>
-        );
-      })}
+      <React.Fragment>
+        {buttons.map(({ type, title, btnShape, bsStyle }, key) => {
+          return (
+            <span key={type + key}>
+              <Button
+                type={type}
+                bsStyle={bsStyle}
+                fill={btnShape === 'fill'}
+                round={btnShape === 'round'}
+                simple={btnShape === 'simple'}
+                block={btnShape === 'block'}
+              >
+                {title}
+              </Button>
+              {'    '}
+            </span>
+          );
+        })}
+      </React.Fragment>
     </Form>
   );
 }
