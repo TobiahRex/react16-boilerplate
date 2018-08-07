@@ -17,10 +17,7 @@ class CrudTable extends React.Component {
   };
 
   render() {
-    const list = [
-      { _id: '12312123123123', name: 'Somethign 1' },
-      { _id: '098234234234234', name: 'Something 2' }
-    ];
+    const { list } = this.props;
     return (
       <div className="content">
         <Grid fluid>

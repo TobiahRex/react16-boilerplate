@@ -64,7 +64,6 @@ class Crud extends Component {
       icon = 'pe-7s-diskette';
       color = 'success';
       message = 'Successfully updated database!';
-      console.log('FIRE success');
       showNotification(icon, color, message);
       return {
         notification_success: true,
@@ -87,7 +86,6 @@ class Crud extends Component {
       icon = 'pe-7s-paper-plane';
       color = 'info';
       message = 'API Request in Progress';
-      console.log('FIRE in progress');
       showNotification(icon, color, message);
       return {
         notification_success: false,
@@ -110,7 +108,6 @@ class Crud extends Component {
       icon = 'pe-7s-plug';
       color = 'info';
       message = 'Database update FAILED!';
-      console.log('FIRE an error');
       showNotification(icon, color, message);
       return {
         notification_success: false,

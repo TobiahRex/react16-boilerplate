@@ -49,7 +49,6 @@ class Dashboard extends React.Component {
     uid = Math.floor(Math.random() * 10000)
   ) => {
     const { _notificationSystem } = this.state;
-    console.log('_notificationSystem: ', _notificationSystem);
     _notificationSystem.addNotification({
       uid,
       icon,
