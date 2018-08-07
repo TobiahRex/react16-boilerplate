@@ -7,12 +7,12 @@ import apiActions from '../../redux/api';
 import thingActions from '../../redux/thing';
 import CrudCard from './CrudCard';
 
-const { func, shape, arrayOf, string, bool, number } = PropTypes;
+const { func, shape, arrayOf, any, bool, number } = PropTypes;
 
 class Crud extends Component {
   static propTypes = {
     showNotification: func.isRequired,
-    things: arrayOf(string),
+    things: arrayOf(any),
     apiStatus: shape({
       error: bool,
       count: number,
@@ -32,17 +32,25 @@ class Crud extends Component {
     super(props);
 
     this.state = {
-      inputData: '',
+      notification_info: false,
+      notification_success: false,
+      notification_error: false,
+      inputData: 'wtf',
       apiStatus: {
         error: false,
         fetching: false
       }
     };
   }
-  componentWillReceiveProps(nextProps) {
-    const { showNotification } = this.props;
-    const { apiStatus: stateStatus } = this.state;
-    const { apiStatus: nextStatus } = nextProps;
+  static getDerivedStateFromProps(props, state) {
+    const { showNotification } = props;
+    const {
+      apiStatus: stateStatus,
+      notification_error,
+      notification_info,
+      notification_success
+    } = state;
+    const { apiStatus: nextStatus } = props;
 
     let icon, color, message;
     if (
@@ -50,60 +58,78 @@ class Crud extends Component {
       stateStatus.fetching &&
       !stateStatus.error &&
       !nextStatus.error &&
-      !nextStatus.fetching
+      !nextStatus.fetching &&
+      !notification_success
     ) {
       icon = 'pe-7s-diskette';
       color = 'success';
       message = 'Successfully updated database!';
+      console.log('FIRE success');
       showNotification(icon, color, message);
-      this.setState({
+      return {
+        notification_success: true,
+        notification_info: false,
+        notification_error: false,
+        inputData: '',
         apiStatus: {
           error: nextStatus.error,
           fetching: nextStatus.fetching
         }
-      });
-      return true;
+      };
     }
 
     if (
       // If we just started fetching
       !nextStatus.error &&
-      nextStatus.fetching
+      nextStatus.fetching &&
+      !notification_info
     ) {
-      this.setState({
+      icon = 'pe-7s-paper-plane';
+      color = 'info';
+      message = 'API Request in Progress';
+      console.log('FIRE in progress');
+      showNotification(icon, color, message);
+      return {
+        notification_success: false,
+        notification_info: true,
+        notification_error: false,
+        inputData: '',
         apiStatus: {
           error: nextStatus.error,
           fetching: nextStatus.fetching
         }
-      });
-      icon = 'pe-7s-paper-plane';
-      color = 'info';
-      message = 'API Request in Progress';
-      showNotification(icon, color, message);
-      return true;
+      };
     }
 
     if (
       // if fetching yielded an error
       !stateStatus.error &&
-      nextStatus.error
+      nextStatus.error &&
+      !notification_error
     ) {
-      this.setState({
+      icon = 'pe-7s-plug';
+      color = 'info';
+      message = 'Database update FAILED!';
+      console.log('FIRE an error');
+      showNotification(icon, color, message);
+      return {
+        notification_success: false,
+        notification_info: false,
+        notification_error: true,
         apiStatus: {
           error: nextStatus.error,
           fetching: nextStatus.fetching
         }
-      });
-      icon = 'pe-7s-plug';
-      color = 'info';
-      message = 'Database update FAILED!';
-      showNotification(icon, color, message);
-      return true;
+      };
     }
 
     // if there is some other reason this lifecycle method is called, then continue w/Reconcilliation.
-    return true;
+    return null;
   }
+  onChange = e => {
+    this.setState({ inputData: e.target.value });
+    e.persist();
+  };
   onSubmit = e => {
     e.preventDefault();
     const { redux } = this.props;
@@ -122,8 +148,9 @@ class Crud extends Component {
           <Row>
             <Col md={12}>
               <CrudCard
-                // input={inputData}
+                inputData={inputData}
                 things={things}
+                onChange={this.onChange}
                 onSubmit={this.onSubmit}
                 crudMethods={redux}
               />

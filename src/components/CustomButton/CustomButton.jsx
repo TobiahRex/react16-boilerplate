@@ -1,4 +1,4 @@
-/* eslint-disable lines-between-class-members, react/prop-types, react/require-default-props */
+/* eslint-disable lines-between-class-members, react/prop-types, react/require-default-props, react/no-children-prop */
 
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
@@ -7,8 +7,18 @@ import PropTypes from 'prop-types';
 
 class CustomButton extends Component {
   render() {
-    const { fill, simple, pullRight, round, block, ...rest } = this.props;
-
+    const {
+      type,
+      onSubmit,
+      fill,
+      simple,
+      pullRight,
+      round,
+      block,
+      children,
+      title,
+      bsStyle
+    } = this.props;
     const btnClasses = cx({
       'btn-fill': fill,
       'btn-simple': simple,
@@ -16,8 +26,26 @@ class CustomButton extends Component {
       'btn-block': block,
       'btn-round': round
     });
-
-    return <Button className={btnClasses} {...rest} />;
+    if (typeof onSubmit === 'function') {
+      return (
+        <Button
+          onClick={e => onSubmit(e)}
+          className={btnClasses}
+          title={title}
+          bsStyle={bsStyle}
+          children={children}
+        />
+      );
+    }
+    return (
+      <Button
+        type={type}
+        className={btnClasses}
+        title={title}
+        bsStyle={bsStyle}
+        children={children}
+      />
+    );
   }
 }
 

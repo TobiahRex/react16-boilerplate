@@ -5,20 +5,22 @@ import PropTypes from 'prop-types';
 import { Grid, Row, Col, Table } from 'react-bootstrap';
 import Card from '../../components/Card/Card'; // eslint-disable-line
 
-const { arrayOf, string } = PropTypes;
+const { arrayOf, any } = PropTypes;
 
 class CrudTable extends React.Component {
   static propTypes = {
-    list: arrayOf(string)
+    list: arrayOf(any)
   };
 
   static defaultProps = {
-    list: ['thing1', 'thing2']
+    list: []
   };
 
   render() {
-    // const { list } = this.props;
-    const list = ['list1', 'list2'];
+    const list = [
+      { _id: '12312123123123', name: 'Somethign 1' },
+      { _id: '098234234234234', name: 'Something 2' }
+    ];
     return (
       <div className="content">
         <Grid fluid>
@@ -30,12 +32,12 @@ class CrudTable extends React.Component {
                 ccTableFullWidth
                 ccTableResponsive
                 content={
-                  <Table striped hover>
+                  <Table striped>
                     <tbody>
-                      {list.map((data, key) => {
+                      {list.map(data => {
                         return (
-                          <tr key={data + key}>
-                            <td>{data}</td>
+                          <tr key={data._id}>
+                            <td>{data.name}</td>
                           </tr>
                         );
                       })}

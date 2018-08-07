@@ -5,7 +5,9 @@ import CrudInput from '../../components/Forms/FormInline';
 import CrudTable from './CrudTable';
 
 const CrudCard = ({
+  inputData,
   things,
+  onChange,
   onSubmit,
   crudMethods: { editThing: cbEdit, removeThing: cbRemove }
 }) => {
@@ -19,14 +21,16 @@ const CrudCard = ({
             ncols={['col-md-8']}
             properties={[
               {
+                inputData,
+                onChange,
                 onSubmit,
                 label: 'New Thing',
                 type: 'text',
-                bsClass: 'form-control',
                 placeholder: 'Enter some data....',
                 buttons: [
                   {
-                    type: 'button',
+                    // onSubmit,
+                    type: 'submit',
                     bsStyle: 'primary',
                     btnShape: 'fill',
                     title: 'Save'
@@ -48,9 +52,11 @@ const CrudCard = ({
   );
 };
 
-const { func, string, shape, arrayOf } = PropTypes;
+const { func, any, shape, string, arrayOf } = PropTypes;
 
 CrudCard.propTypes = {
+  inputData: string.isRequired,
+  onChange: func.isRequired,
   onSubmit: func.isRequired,
   crudMethods: shape({
     fetching: func,
@@ -58,7 +64,7 @@ CrudCard.propTypes = {
     editThing: func,
     removeThing: func
   }).isRequired,
-  things: arrayOf(string)
+  things: arrayOf(any)
 };
 
 CrudCard.defaultProps = {

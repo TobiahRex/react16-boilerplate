@@ -41,31 +41,15 @@ class Dashboard extends React.Component {
     }
   }
 
-  showNotification(
+  showNotification = (
     icon,
-    color,
+    level,
     message = '<YOU FORGOT THE MESSAGE>',
     position = 'bc',
     uid = Math.floor(Math.random() * 10000)
-  ) {
-    let level;
-    switch (color) {
-      case 1:
-        level = 'success';
-        break;
-      case 2:
-        level = 'warning';
-        break;
-      case 3:
-        level = 'error';
-        break;
-      case 4:
-        level = 'info';
-        break;
-      default:
-        break;
-    }
+  ) => {
     const { _notificationSystem } = this.state;
+    console.log('_notificationSystem: ', _notificationSystem);
     _notificationSystem.addNotification({
       uid,
       icon,
@@ -82,14 +66,14 @@ class Dashboard extends React.Component {
       // )
     });
     this.setState(prevState => ({ ...prevState, _notificationId: uid }));
-  }
+  };
   render() {
     return (
       <div className="wrapper">
         <NotificationSystem
           style={styleNotifications}
           ref={c => {
-            this.notificationComp = c;
+            this.ref_notificationSys = c;
           }}
         />
         <Sidebar {...this.props} />

@@ -10,37 +10,46 @@ import {
 import Button from '../CustomButton/CustomButton';
 
 function FieldGroup({
+  inputData,
+  onChange,
+  onSubmit,
   label,
+  type,
   groupWidth,
   inputWidth,
-  onSubmit,
   buttons,
   ...props
 }) {
   return (
-    <Form inline>
+    <Form inline onSubmit={onSubmit}>
       <FormGroup controlId="inline-form" className={groupWidth}>
         <ControlLabel>{label}</ControlLabel>
         {'   '}
-        <FormControl {...props} />
+        <FormControl
+          type={type}
+          {...props}
+          value={inputData}
+          onChange={onChange}
+        />
       </FormGroup>
       {'  '}
       <React.Fragment>
-        {buttons.map(({ type, title, btnShape, bsStyle }, key) => {
+        {buttons.map((prop, key) => {
           return (
-            <span key={type + key}>
+            <React.Fragment key={prop.type + key}>
               <Button
-                type={type}
-                bsStyle={bsStyle}
-                fill={btnShape === 'fill'}
-                round={btnShape === 'round'}
-                simple={btnShape === 'simple'}
-                block={btnShape === 'block'}
+                type={prop.type}
+                bsStyle={prop.bsStyle}
+                fill={prop.btnShape === 'fill'}
+                round={prop.btnShape === 'round'}
+                simple={prop.btnShape === 'simple'}
+                block={prop.btnShape === 'block'}
+                {...prop}
               >
-                {title}
+                {prop.title}
               </Button>
               {'    '}
-            </span>
+            </React.Fragment>
           );
         })}
       </React.Fragment>
