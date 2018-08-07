@@ -9,7 +9,6 @@ class CustomButton extends Component {
   render() {
     const {
       type,
-      onSubmit,
       fill,
       simple,
       pullRight,
@@ -26,17 +25,6 @@ class CustomButton extends Component {
       'btn-block': block,
       'btn-round': round
     });
-    if (typeof onSubmit === 'function') {
-      return (
-        <Button
-          onClick={e => onSubmit(e)}
-          className={btnClasses}
-          title={title}
-          bsStyle={bsStyle}
-          children={children}
-        />
-      );
-    }
     return (
       <Button
         type={type}

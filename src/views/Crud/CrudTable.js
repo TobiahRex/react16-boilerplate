@@ -2,14 +2,17 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Row, Col, Table } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 import Card from '../../components/Card/Card'; // eslint-disable-line
+import CrudList from '../../components/CrudList';
 
-const { arrayOf, any } = PropTypes;
+const { arrayOf, func, shape, string } = PropTypes;
 
 class CrudTable extends React.Component {
   static propTypes = {
-    list: arrayOf(any)
+    onEdit: func.isRequired,
+    onRemove: func.isRequired,
+    list: arrayOf(shape({ _id: string, name: string }))
   };
 
   static defaultProps = {
@@ -17,7 +20,7 @@ class CrudTable extends React.Component {
   };
 
   render() {
-    const { list } = this.props;
+    const { list, onRemove, onEdit } = this.props;
     return (
       <div className="content">
         <Grid fluid>
@@ -29,17 +32,7 @@ class CrudTable extends React.Component {
                 ccTableFullWidth
                 ccTableResponsive
                 content={
-                  <Table striped>
-                    <tbody>
-                      {list.map(data => {
-                        return (
-                          <tr key={data._id}>
-                            <td>{data.name}</td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </Table>
+                  <CrudList list={list} onRemove={onRemove} onEdit={onEdit} />
                 }
               />
             </Col>

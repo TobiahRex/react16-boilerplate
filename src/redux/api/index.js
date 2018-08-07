@@ -14,14 +14,14 @@ export default Creators;
 export const INITIAL_STATE = {
   fetching: null,
   count: 0,
-  error: false
+  error: ''
 };
 
 // ------- Response Actions ------- //
 const success = state => ({
   fetching: false,
   count: state.fetching - 1,
-  error: false
+  error: ''
 });
 
 const fail = (state, { error }) => ({
@@ -33,7 +33,7 @@ const fail = (state, { error }) => ({
 const fetching = state => ({
   fetching: true,
   count: state.fetching + 1,
-  error: false
+  error: ''
 });
 
 // ------- create Reducer ------- //

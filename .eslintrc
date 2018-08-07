@@ -41,7 +41,7 @@ rules:
   react/no-unused-prop-types: 0
   react/jsx-one-expression-per-line: 0
   import/no-named-as-default: 0
-  lines-between-class-members: 1
+  lines-between-class-members: 0
   no-param-reassign:
     - 0
     - props: false

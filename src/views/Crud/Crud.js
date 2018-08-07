@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-wrap-multilines, lines-between-class-members */
+/* eslint-disable react/jsx-wrap-multilines, lines-between-class-members, camelcase, react/no-unused-state */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-bootstrap';
@@ -7,14 +7,14 @@ import apiActions from '../../redux/api';
 import thingActions from '../../redux/thing';
 import CrudCard from './CrudCard';
 
-const { func, shape, arrayOf, any, bool, number } = PropTypes;
+const { func, shape, arrayOf, any, bool, number, string } = PropTypes;
 
 class Crud extends Component {
   static propTypes = {
     showNotification: func.isRequired,
     things: arrayOf(any),
     apiStatus: shape({
-      error: bool,
+      error: string,
       count: number,
       fetching: bool
     }).isRequired,
@@ -37,7 +37,7 @@ class Crud extends Component {
       notification_error: false,
       inputData: 'wtf',
       apiStatus: {
-        error: false,
+        error: string,
         fetching: false
       }
     };
@@ -124,8 +124,7 @@ class Crud extends Component {
     return null;
   }
   onChange = e => {
-    this.setState({ inputData: e.target.value });
-    e.persist();
+    this.setState({ inputData: e.currentTarget.value });
   };
   onSubmit = e => {
     e.preventDefault();
@@ -136,8 +135,21 @@ class Crud extends Component {
     redux.createThing({ name: inputData });
     this.setState({ inputData: '' });
   };
+  onEdit = id => {
+    console.log('WTFFFFF');
+    const { redux } = this.props;
+    const { inputData } = this.state;
+    redux.fetching();
+    redux.editThing({ id, name: inputData });
+    this.setState({ inputData: '' });
+  };
+  onRemove = id => {
+    const { redux } = this.props;
+    redux.fetching();
+    redux.removeThing(id);
+  };
   render() {
-    const { redux, things } = this.props;
+    const { things } = this.props;
     const { inputData } = this.state;
     return (
       <div className="content">
@@ -147,9 +159,12 @@ class Crud extends Component {
               <CrudCard
                 inputData={inputData}
                 things={things}
-                onChange={this.onChange}
-                onSubmit={this.onSubmit}
-                crudMethods={redux}
+                crudMethods={{
+                  onChange: this.onChange,
+                  onSubmit: this.onSubmit,
+                  onEdit: this.onEdit,
+                  onRemove: this.onRemove
+                }}
               />
             </Col>
           </Row>

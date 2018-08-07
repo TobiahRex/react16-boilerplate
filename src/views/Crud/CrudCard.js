@@ -7,9 +7,7 @@ import CrudTable from './CrudTable';
 const CrudCard = ({
   inputData,
   things,
-  onChange,
-  onSubmit,
-  crudMethods: { editThing: cbEdit, removeThing: cbRemove }
+  crudMethods: { onSubmit, onEdit, onChange, onRemove }
 }) => {
   return (
     <Card
@@ -45,26 +43,29 @@ const CrudCard = ({
               }
             ]}
           />
-          <CrudTable list={things} cbEdit={cbEdit} cbRemove={cbRemove} />
+          <CrudTable list={things} onEdit={onEdit} onRemove={onRemove} />
         </React.Fragment>
       }
     />
   );
 };
 
-const { func, any, shape, string, arrayOf } = PropTypes;
+const { func, shape, string, arrayOf } = PropTypes;
 
 CrudCard.propTypes = {
   inputData: string.isRequired,
-  onChange: func.isRequired,
-  onSubmit: func.isRequired,
+  things: arrayOf(
+    shape({
+      _id: string,
+      name: string
+    })
+  ),
   crudMethods: shape({
-    fetching: func,
-    createThing: func,
-    editThing: func,
-    removeThing: func
-  }).isRequired,
-  things: arrayOf(any)
+    onChange: func,
+    onSubmit: func,
+    onEdit: func,
+    onRemove: func
+  }).isRequired
 };
 
 CrudCard.defaultProps = {
