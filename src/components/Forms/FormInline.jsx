@@ -12,24 +12,22 @@ import Button from '../CustomButton/CustomButton';
 function FieldGroup({
   inputData,
   onChange,
-  onSubmit,
+  // onSubmit,
   label,
   type,
-  groupWidth,
-  inputWidth,
-  buttons,
-  ...props
+  placeholder,
+  buttons
 }) {
   return (
-    <Form inline onSubmit={onSubmit}>
-      <FormGroup controlId="inline-form" className={groupWidth}>
+    <Form inline>
+      <FormGroup controlId="inline-form">
         <ControlLabel>{label}</ControlLabel>
         {'   '}
         <FormControl
           type={type}
-          {...props}
           value={inputData}
           onChange={onChange}
+          placeholder={placeholder}
         />
       </FormGroup>
       {'  '}

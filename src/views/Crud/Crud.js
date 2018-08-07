@@ -35,7 +35,9 @@ class Crud extends Component {
       notification_info: false,
       notification_success: false,
       notification_error: false,
-      inputData: 'wtf',
+      inputData: '',
+      editId: '',
+      edit_flag: false,
       apiStatus: {
         error: string,
         fetching: false
@@ -119,7 +121,6 @@ class Crud extends Component {
         }
       };
     }
-
     // if there is some other reason this lifecycle method is called, then continue w/Reconcilliation.
     return null;
   }
@@ -135,37 +136,79 @@ class Crud extends Component {
     redux.createThing({ name: inputData });
     this.setState({ inputData: '' });
   };
+  onClear = () => {
+    this.setState({ edit_flag: false, inputData: '', editId: '' });
+  };
   onEdit = id => {
-    console.log('WTFFFFF');
+    const data = document.getElementById(id).innerText;
+    this.setState({ editId: id, inputData: data, edit_flag: true });
+  };
+  submitEdit = e => {
+    e.preventDefault();
+
     const { redux } = this.props;
-    const { inputData } = this.state;
+    const { inputData, editId } = this.state;
+
     redux.fetching();
-    redux.editThing({ id, name: inputData });
-    this.setState({ inputData: '' });
+    redux.editThing({ id: editId, name: inputData });
+    this.setState({ editId: '', edit_flag: false, inputData: '' });
   };
   onRemove = id => {
     const { redux } = this.props;
     redux.fetching();
     redux.removeThing(id);
+    this.setState({ editId: '', edit_flag: false, inputData: '' });
+  };
+  renderHelper = ({ type }) => {
+    switch (type) {
+      case 'edit': {
+        const { editId, inputData, edit_flag } = this.state;
+        const { things } = this.props;
+        return (
+          <CrudCard
+            editId={editId}
+            editing={edit_flag}
+            inputData={inputData}
+            things={things}
+            crudMethods={{
+              onChange: this.onChange,
+              onSubmit: this.submitEdit,
+              onEdit: this.onEdit,
+              onRemove: this.onRemove,
+              cancelEdit: () => {
+                this.setState({ edit_flag: false, inputData: '', editId: '' });
+              }
+            }}
+          />
+        );
+      }
+      default: {
+        const { inputData } = this.state;
+        const { things } = this.props;
+        return (
+          <CrudCard
+            inputData={inputData}
+            things={things}
+            crudMethods={{
+              onChange: this.onChange,
+              onSubmit: this.onSubmit,
+              onEdit: this.onEdit,
+              onRemove: this.onRemove,
+              onClear: this.onClear
+            }}
+          />
+        );
+      }
+    }
   };
   render() {
-    const { things } = this.props;
-    const { inputData } = this.state;
+    const { edit_flag } = this.state;
     return (
       <div className="content">
         <Grid fluid>
           <Row>
             <Col md={12}>
-              <CrudCard
-                inputData={inputData}
-                things={things}
-                crudMethods={{
-                  onChange: this.onChange,
-                  onSubmit: this.onSubmit,
-                  onEdit: this.onEdit,
-                  onRemove: this.onRemove
-                }}
-              />
+              {this.renderHelper({ type: edit_flag ? 'edit' : '' })}
             </Col>
           </Row>
         </Grid>

@@ -25,10 +25,8 @@ const createAPI = () => {
 
   const removeThing = id => api.delete(`api/things/${id}`);
 
-  const editThing = thing => {
-    console.log('thing: ', thing);
-    return api.put(`api/things/${thing.id}`, { name: thing.name });
-  };
+  const editThing = thing =>
+    api.put(`api/things/${thing.id}`, { name: thing.name });
 
   // --------------------------------------------------------
   return {

@@ -13,14 +13,14 @@ router.get('/:thingId', (req, res) =>
 router
   .route('/:thingId')
   .get((req, res) => Thing.findById(req.params.thingId, res.handle))
-  .put((req, res) => {
-    return Thing.findByIdAndUpdate(
+  .put((req, res) =>
+    Thing.findByIdAndUpdate(
       Types.ObjectId(req.params.thingId),
       req.body,
       { new: true },
       res.handle
-    );
-  })
+    )
+  )
   .delete((req, res) =>
     Thing.findByIdAndRemove(req.params.thingId, res.handle)
   );

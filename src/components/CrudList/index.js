@@ -30,7 +30,7 @@ class CrudList extends Component {
           <tbody>
             {list.map(data => (
               <tr key={data._id}>
-                <td>{data.name}</td>
+                <td id={data._id}>{data.name}</td>
                 <td className="td-actions text-right">
                   <OverlayTrigger placement="top" overlay={edit}>
                     <Button
