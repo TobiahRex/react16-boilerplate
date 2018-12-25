@@ -18,13 +18,11 @@ import './assets/styles/style.scss'; //eslint-disable-line
 const { store, persistor } = configureStore();
 
 render(
-  <React.Fragment>
-    <AppContainer>
-      <PersistGate loading={null} persistor={persistor}>
-        <Root store={store} history={history} />
-      </PersistGate>
-    </AppContainer>
-  </React.Fragment>,
+  <AppContainer>
+    <PersistGate loading={null} persistor={persistor}>
+      <Root store={store} history={history} />
+    </PersistGate>
+  </AppContainer>,
   document.getElementById('app')
 );
 

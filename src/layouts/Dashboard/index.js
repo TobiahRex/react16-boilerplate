@@ -84,6 +84,7 @@ class Dashboard extends React.Component {
           }}
         >
           <Header {...this.props} />
+          
           <Switch>
             {dashboardRoutes.map((prop, key) => {
               if (prop.name === 'Crud') {
